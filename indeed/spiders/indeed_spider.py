@@ -11,7 +11,7 @@ class IndeedSpider(scrapy.Spider):
 
     def parse(self, response):
         ij = scrapy.Selector(response)
-        jobs = ij.xpath("//div[contains(@data-tn-element, 'jobTitle')]")
+        jobs = ij.xpath("//div[contains(@class, 'row ')]")
         openings = []
         job_list = jobs.xpath('a[@target="_blank"]/text()').extract()
         for job in job_list:
