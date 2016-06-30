@@ -13,9 +13,13 @@ class IndeedSpider(scrapy.Spider):
         ij = scrapy.Selector(response)
         jobs = ij.xpath("//div[contains(@class, 'row ')]")
         openings = []
-        job_list = jobs.xpath('a[@target="_blank"]/text()').extract()
+        job_list = jobs.xpath('a[@data-tn-element="jobTitle"]/text()').extract()
+        city = jobs.xpath('span[@class="location"]/text()').extract()
+        company = jobs.xpath('span[@class="company"]/text()').extract()
         for job in job_list:
             position = IndeedItem()
             position['jobs'] = job
+            position['city'] = city
+            position['company'] = company
             openings.append(position)
         return openings
