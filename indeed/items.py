@@ -13,3 +13,4 @@ class IndeedItem(scrapy.Item):
     city = scrapy.Field()
     state = scrapy.Field()
     jobs = scrapy.Field()
+    test = scrapy.Field()
