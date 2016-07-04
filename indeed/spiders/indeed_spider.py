@@ -10,19 +10,11 @@ class IndeedSpider(scrapy.Spider):
         ]
 
     def parse(self, response):
-        ij = scrapy.Selector(response)
-        jobs = ij.xpath("//div[contains(@class, 'row ')]")
-        job_list = jobs.xpath('//a[contains(@data-tn-element, "jobTitle")]/text()').extract()
-        city = jobs.xpath('//span[@class="location"]/text()').extract()
-        company = jobs.xpath('//span[@class="company"]/text()').extract()
-        openings = []
-        count = 0
-        for job in job_list:
+
+        for sel in response.xpath("//div[contains(@class, 'row ')]"):
             position = IndeedItem()
-            position['jobs'] = job
-            position['city'] = city
-            position['company'] = company
-            openings.append(position)
-            count += 1
-        print(type(city))
-        return list(set(openings))
+            position['jobs'] = sel.xpath('//a[contains(@data-tn-element, "jobTitle")]/text()').extract()
+            position['city'] = sel.xpath('//span[@class="location"]/text()').extract()
+            position['company'] = sel.xpath('//span[@class="company"]/text()').extract()
+
+            return position

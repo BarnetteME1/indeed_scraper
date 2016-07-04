@@ -14,6 +14,7 @@ BOT_NAME = 'indeed'
 SPIDER_MODULES = ['indeed.spiders']
 NEWSPIDER_MODULE = 'indeed.spiders'
 
+FEED_FORMAT = 'CSV'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'indeed (+http://www.yourdomain.com)'
@@ -64,9 +65,11 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'indeed.pipelines.SomePipeline': 300,
-#}
+ITEM_PIPELINES = {
+#    'indeed.pipelines.DuplicatesPipeline': 100,
+    'indeed.pipelines.IndeedPipeline': 300,
+}
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
