@@ -8,7 +8,7 @@
 from scrapy import signals
 from scrapy.xlib.pydispatch import dispatcher
 from scrapy import signals
-from scrapy.contrib.exporter import CsvItemExporter
+from scrapy.exporters import CsvItemExporter
 
 class IndeedPipeline(object):
     def process_item(self, item, spider):
