@@ -10,7 +10,7 @@ class IndeedSpider(CrawlSpider):
     start_urls = [
         'http://www.indeed.com/jobs?as_and=&as_phr=&as_any=&as_not=&as_ttl=&as_cmp=&jt=all&st=&salary=&radius=50&l=19103&fromage=30&limit=10&sort=&psf=advsrch'
         ]
-    rules = (Rule(LinkExtractor(allow=(), restrict_xpaths=("//span[@class='np']", )), callback="parse_item", follow= True))
+    rules = (Rule(LinkExtractor(allow=('http://www.indeed.com/jobs?q=&l=19103&radius=50&fromage=30&start=.*'))), )
 
     def parse_item(self, response):
         for sel in response.xpath("//div[contains(@class, 'row ')]"):

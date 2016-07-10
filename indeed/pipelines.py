@@ -6,8 +6,6 @@
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 from scrapy import signals
-from scrapy.xlib.pydispatch import dispatcher
-from scrapy import signals
 from scrapy.exporters import CsvItemExporter
 
 class IndeedPipeline(object):
@@ -19,9 +17,14 @@ class IndeedPipeline(object):
 class CsvExportPipeline(object):
 
     def __init__(self):
-        dispatcher.connect(self.spider_opened, signals.spider_opened)
-        dispatcher.connect(self.spider_closed, signals.spider_closed)
         self.files = {}
+
+    @classmethod
+    def from_crawler(cls, crawler):
+         pipeline = cls()
+         crawler.signals.connect(pipeline.spider_opened, signals.spider_opened)
+         crawler.signals.connect(pipeline.spider_closed, signals.spider_closed)
+         return pipeline
 
     def spider_opened(self, spider):
         file = open('%s_jobs.csv' % spider.name, 'w+b')
