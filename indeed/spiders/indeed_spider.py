@@ -24,4 +24,4 @@ class IndeedSpider(CrawlSpider):
                 position['city'] = c.strip()
                 position['company'] = co.strip()
                 items.append(position)
-            return position
+            yield items
