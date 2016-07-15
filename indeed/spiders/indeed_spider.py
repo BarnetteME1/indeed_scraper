@@ -4,7 +4,7 @@ from scrapy.linkextractors import LinkExtractor
 from indeed.items import IndeedItem
 
 
-class IndeedSpider(scrapy.Spider):
+class IndeedSpider(CrawlSpider):
     name = "indeed"
     allowed_domains = ['www.indeed.com']
     start_urls = [
@@ -13,17 +13,18 @@ class IndeedSpider(scrapy.Spider):
     rules = (Rule(LinkExtractor(allow_domains=())), )
 
 
-    def parse_item(self, response):
+    def parse_jobs(self, response):
         for sel in response.xpath("//div[contains(@class, 'row ')]"):
             inspect_response(response, self)
-            items = []
-            jobs = sel.xpath('//a[contains(@data-tn-element, "jobTitle")]/text()').extract()
+            position = IndeedItem()
+            #items = []
+            position['jobs'] = sel.xpath('//a[contains(@data-tn-element, "jobTitle")]/text()').extract()
             city = sel.xpath('//span[@class="location"]/text()').extract()
             company = sel.xpath('//span[@class="company"]/text()').extract()
-            for j, c, co in zip(jobs, city, company):
-                position = IndeedItem()
-                position['jobs'] = j.strip()
-                position['city'] = c.strip()
-                position['company'] = co.strip()
-                items.append(position)
-            yield items
+            #for j, c, co in zip(jobs, city, company):
+            #    position = IndeedItem()
+            #    position['jobs'] = j.strip()
+            #    position['city'] = c.strip()
+            #    position['company'] = co.strip()
+            #    items.append(position)
+            yield position
