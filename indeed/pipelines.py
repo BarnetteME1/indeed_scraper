@@ -10,9 +10,19 @@ from scrapy.xlib.pydispatch import dispatcher
 from scrapy.exporters import CsvItemExporter
 
 class IndeedPipeline(object):
+
     def process_item(self, item, spider):
         return item
 
+
+class DropDuplicates(object):
+
+    def check_item(self, item):
+        only_once = []
+        for sel in item:
+            if sel not in only_once:
+                only_once.append(sel)
+        return only_once
 
 
 class CsvExportPipeline(object):

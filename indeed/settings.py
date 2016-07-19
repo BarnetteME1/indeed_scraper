@@ -68,7 +68,8 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
 #    'indeed.pipelines.DuplicatesPipeline': 100,
     'indeed.pipelines.IndeedPipeline': 300,
-    'indeed.pipelines.CsvExportPipeline':400,
+    'indeed.pipelines.DropDuplicates': 400,
+    'indeed.pipelines.CsvExportPipeline':1000,
 }
 
 
