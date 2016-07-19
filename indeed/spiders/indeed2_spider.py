@@ -11,4 +11,8 @@ class IndeedSpider(scrapy.Spider):
 
     def parse(self, response):
         sel = response.xpath("//div[contains(@class, 'row ')]")
-        
+        position = IndeedItem()
+        position['jobs'] = j.strip()
+        position['city'] = c.strip()
+        position['company'] = co.strip()
+        return position
