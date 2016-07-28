@@ -11,6 +11,5 @@ import scrapy
 class IndeedItem(scrapy.Item):
     company = scrapy.Field()
     city = scrapy.Field()
-    state = scrapy.Field()
     jobs = scrapy.Field()
-    test = scrapy.Field()
+    description = scrapy.Field()
