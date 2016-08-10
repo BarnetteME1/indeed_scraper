@@ -22,12 +22,12 @@ class IndeedSpider(CrawlSpider):
             city = sel.xpath('//span[@class="location"]/text()').extract()
             if sel.xpath('//span[@class="company"]/text()').extract() != "":
                 company = sel.xpath('//span[@class="company"]/text()').extract()
-            elif sel.xpath('//span[contains(@itemprop, "name")]/text()').extract() != "":
+            if sel.xpath('//span[contains(@itemprop, "name")]/text()').extract() != "":
                 company = sel.xpath('//span[contains(@itemprop, "name")]/text()').extract()
-            elif sel.xpath('//a[contains(@data-tn-element, "companyName")]/text()').extract() != "":
+            if sel.xpath('//a[contains(@data-tn-element, "companyName")]/text()').extract() != "":
                 company = sel.xpath('//a[contains(@data-tn-element, "companyName")]/text()').extract()
-            elif sel.xpath('//a[contains(@target, "blank"])/text()').extract() != "":
-                company = sel.xpath('//a[contains(@target, "blank"])/text()').extract()
+            if sel.xpath('//a[contains(@target, "blank"])/text()').extract() != "":
+                company = sel.xpath('//a[contains(., "_blank"])/text()').extract()
             description = sel.xpath('//span[@class="summary"]/text()').extract()
             for j, c, co, d in zip(jobs, city, company, description):
                 position = IndeedItem()
