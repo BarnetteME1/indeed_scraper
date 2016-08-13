@@ -16,11 +16,11 @@ class IndeedSpider(CrawlSpider):
 
 
     def parse_jobs(self, response):
-        for sel in response.xpath("//div[contains(@class, 'row ')]"):
+        for sel in response.xpath("//div[contains(@class, 'row')]"):
             items = []
             jobs = sel.xpath('//a[contains(@data-tn-element, "jobTitle")]/text()').extract()
             city = sel.xpath('//span[@class="location"]/text()').extract()
-            company = sel.xpath('//span[@class="company"]/text()|//span[@itemprop = "hiringOrganization"]/span/text()|//a[@data-tn-element = "companyName"]/text()|text()|//span[contains(@itemprop, "name")]/a/text()').extract()
+            company = sel.xpath('//span[@class="company"]//text()|//span[@itemprop = "hiringOrganization"]/span//text()|//a[@data-tn-element = "companyName"]//text()|//span[contains(@itemprop, "name")]/a//text()').extract()
             description = sel.xpath('//span[@class="summary"]/text()').extract()
             for j, c, co, d in zip(jobs, city, company, description):
                 position = IndeedItem()
