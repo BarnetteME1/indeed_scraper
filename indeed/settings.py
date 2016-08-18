@@ -68,7 +68,7 @@ DOWNLOAD_DELAY = 3
 ITEM_PIPELINES = {
 #    'indeed.pipelines.DuplicatesPipeline': 100,
     'indeed.pipelines.IndeedPipeline': 300,
-    'indeed.pipelines.DropDuplicates': 400,
+    #'indeed.pipelines.DropDuplicates': 400,
     'indeed.pipelines.CsvExportPipeline':1000,
 }
 
