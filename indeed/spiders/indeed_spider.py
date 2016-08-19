@@ -15,13 +15,14 @@ class IndeedSpider(CrawlSpider):
     Rule (LinkExtractor(allow_domains=(), restrict_xpaths=('//span[@class="np"]')), follow=True), )
 
 
+
     def parse_jobs(self, response):
         for sel in response.xpath("//div[contains(@class, 'row')]"):
             items = []
-            jobs = sel.xpath('//a[contains(@data-tn-element, "jobTitle")]/text()').extract()
-            city = sel.xpath('//span[@class="location"]/text()').extract()
-            company = sel.xpath('//span[@class="company"]//text()|//span[@itemprop = "hiringOrganization"]/span//text()').extract()
-            description = sel.xpath('//span[@class="summary"]/text()').extract()
+            jobs = sel.xpath('normalize-space(//a[contains(@data-tn-element, "jobTitle")])').extract()
+            city = sel.xpath('normalize-space(//span[@class="location"])').extract()
+            company = sel.xpath('normalize-space(//span[@class="company"]|//span[@itemprop = "hiringOrganization"])').extract()
+            description = sel.xpath('normalize-space(//span[@class="summary"])').extract()
             for j, c, co, d in zip(jobs, city, company, description):
                 position = IndeedItem()
                 position['jobs'] = j.strip()
