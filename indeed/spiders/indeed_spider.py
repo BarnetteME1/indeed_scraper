@@ -17,7 +17,7 @@ class IndeedSpider(CrawlSpider):
 
 
     def parse_jobs(self, response):
-        for sel in response.xpath("//div[contains(@class, 'row')]"):
+        for sel in response.xpath("//div[contains(@class, 'row')]")
             items = []
             jobs = sel.xpath('normalize-space(//a[contains(@data-tn-element, "jobTitle")])').extract()
             city = sel.xpath('normalize-space(//span[@class="location"])').extract()
